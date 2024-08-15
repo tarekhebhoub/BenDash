@@ -7,14 +7,21 @@ class Customer(models.Model):
     ccp=models.IntegerField()
     numCard=models.IntegerField()
     willaya=models.CharField(max_length=100)
-    city=models.CharField(max_length=100)
+    ville=models.CharField(max_length=100)
     def __str__(self):
         return self.name
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    prix_Achat=models.DecimalField(max_digits=10, decimal_places=2)
+    prix_achat=models.DecimalField(max_digits=10, decimal_places=2)
+    quantity=models.IntegerField()
+    
+    def delete(self, *args, **kwargs):
+        raise ValidationError("This record cannot be deleted.")
+
+    def has_delete_permission(self, request, obj=None):
+        return False  # Disable deletion in admin
 
     def __str__(self):
         return self.name
