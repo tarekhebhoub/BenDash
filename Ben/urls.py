@@ -1,8 +1,8 @@
 # urls.py
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import DefaultRouter # type: ignore
 from .views import CustomerViewSet, ProductViewSet, InvoiceViewSet, PaymentViewSet,logout,GetVentes,GetVenteDetails,Create_invoice_with_products
-from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework.authtoken.views import obtain_auth_token # type: ignore
 from . import views
 
 router = DefaultRouter()
@@ -18,6 +18,9 @@ urlpatterns = [
     path('logout/', logout, name='logout'),
     path('getVentes/',GetVentes,name='getVentes'),
     path('getVenteDetails/<int:pk>/',GetVenteDetails,name='getVenteDetails'),
-    path('createInvoice/',Create_invoice_with_products,name='createInvoice')
+    path('createInvoice/',Create_invoice_with_products,name='createInvoice'),
+    path('ventes-en-cours/',views.export_clients_with_rest,name='printClientWithRest'),
+    path('dashboardData/',views.dashboardData,name='fetchDashboardData'),
+    path('getFileData/',views.export_clients_with_rest_with_date,name='printClientWithRestwithDate'),
 
 ]

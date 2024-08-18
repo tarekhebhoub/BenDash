@@ -18,7 +18,7 @@ class Product(models.Model):
     quantity=models.IntegerField()
     
     def delete(self, *args, **kwargs):
-        raise ValidationError("This record cannot be deleted.")
+        raise ValidationError("This record cannot be deleted.") # type: ignore
 
     def has_delete_permission(self, request, obj=None):
         return False  # Disable deletion in admin
@@ -55,8 +55,8 @@ class InvoiceItem(models.Model):
 
 class Payment(models.Model):
     invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    payment_date = models.DateTimeField(default=timezone.now)
+    amount = models.DecimalField(max_digits=10, decimal_places=2,null=True)
+    payment_date = models.DateTimeField(null=True)
 
     def __str__(self):
         return f"Payment for Invoice #{self.invoice.pk} - {self.amount}"
